@@ -12,13 +12,56 @@ export class NgDropFilesDirective {
 
   constructor() { }
 
+  // Eventos
   @HostListener('dragover', ['$event'] )
   public onDragEnter( event: any ): void {
     this.mouseHover.emit(true);
+    this.preventOpenImagenInBrowser(event);
   }
+
   @HostListener('dragleave', ['$event'] )
   public onDragLeave( event: any ): void {
     this.mouseHover.emit(false);
+  }
+
+  @HostListener('drop', ['$event'] )
+  public onDrop( event: any ): void {
+    // Se captura el modo de transferencia del navegador
+    const transfer = this.getTransfer(event);
+
+    if (!transfer) {
+      return;
+    }
+
+    this.pullFiles(transfer.files);
+    this.preventOpenImagenInBrowser(event);
+    this.mouseHover.emit(false);
+  }
+
+  // Nos ayuda a compatibilidad e la aplicación
+  // Hay navegadores que interpretan de manera diferente el drag&Drop
+  private getTransfer( event: any): DataTransfer {
+    return event.dataTransfer ? event.dataTransfer : event.originalEvent.dataTransfer;
+  }
+
+  // Para extraer los archivos.
+  private pullFiles(fileList: FileList): void{
+    console.log(fileList);
+
+    // Filelist devuelve una lista de objetos. Es necesario pasarlos a array.
+
+    for (const property of Object.getOwnPropertyNames(fileList)) {
+      console.log(property);
+
+      const fileTemp = fileList[Number(property)];
+      console.log(fileTemp);
+
+      if (this.fileCanUpload(fileTemp)) {
+        const newFile = new FileItem( fileTemp );
+        this.files.push(newFile);
+      }
+    }
+    console.log(this.files);
   }
 
   // VAlidaciones

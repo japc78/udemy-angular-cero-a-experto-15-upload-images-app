@@ -1,14 +1,25 @@
 <div class="row">
   <div class="col-md-4">
     <h3>Files to upload</h3>
-    <div appNgDropFiles (mouseHover)="isHoverDrop = $event" [ngClass]="{ 'file-over': isHoverDrop }" class="well drop-zone">
+    <div
+      appNgDropFiles
+      [files] = "files"
+      (mouseHover)="isHoverDrop = $event"
+      [ngClass]="{ 'file-over': isHoverDrop }"
+      class="well drop-zone"
+    >
       <h4>Drop here your files</h4>
       <img src="assets/drop-images.png" />
     </div>
   </div>
   <div class="col-md-8">
     <h4>Upload files</h4>
-    <button (click)="uploadImages()" [disabled]="files.length === 0" type="button" class="btn btn-outline-primary mr-3">
+    <button
+      (click)="uploadImages()"
+      [disabled]="files.length === 0"
+      type="button"
+      class="btn btn-outline-primary mr-3"
+    >
       Upload to firebase
     </button>
     <button type="button" class="btn btn-outline-danger">Clean</button>
