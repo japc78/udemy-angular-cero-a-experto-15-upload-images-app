@@ -11,6 +11,7 @@ import { UploadImagesService } from '../../services/upload-images.service';
 export class UploadComponent implements OnInit {
 
   files: FileItem[] = [];
+  isHoverDrop = false;
 
   constructor( public uploadImagesService: UploadImagesService) { }
 
