@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-upload-images": {
+      "hosting": {
+        "uploadImageFirebase": [
+          "angular-upload-images"
+        ]
+      }
+    }
+  }
+}
