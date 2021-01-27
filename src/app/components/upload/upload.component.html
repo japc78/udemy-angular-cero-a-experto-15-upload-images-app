@@ -34,7 +34,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let image of files">
+      <tr *ngFor="let image of files" [ngClass]="{'table-success': image.progress >= 100}">
         <td scope="row">{{ image.fileName }}</td>
         <td>{{ image.file.size / 1024 / 1024 | number: '.2-2'}} MB</td>
         <td>
@@ -42,7 +42,7 @@
             <div
               class="progress-bar"
               role="progressbar"
-              [ngStyle]="{'with': image.progress + '%'}"
+              [ngStyle]="{'width': image.progress + '%'}"
             ></div>
           </div>
         </td>
